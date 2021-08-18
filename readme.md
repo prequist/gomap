@@ -2,6 +2,9 @@
 
 Map functions utilizing basic interfaces, assertions, and ptypes.
 
+This code and [ptypes](https://github.com/prequist/ptypes) are both artistic bloat,
+utilised for DX concepts and/or type-evading for operations.
+
 ## Usage
 
 <details closed>
