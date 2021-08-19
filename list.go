@@ -70,9 +70,9 @@ func (list *List) Iterator() *Iterator {
 			// Add the list's elements.
 			elements: (*[]interface{})(&list.elements),
 			// Set the iterator index.
-			current:  -1,
+			current: -1,
 			// Set the current iteration value.
-			Value:    nil,
+			Value: nil,
 		}
 	}
 	// Return the list's iterator.

@@ -26,6 +26,12 @@ func Showcase() {
     mappable := gomap.MappableList{list}
     // The outcome.
     outcome := mappable.Map(transformer)
+    
+    // For predefined slices, we can use this flow:
+    slice := []int{1, 2, 3, 4, 5}
+    list = gomap.New(slice)
+    mappable = gomap.MappableList{list}
+    outcome := mappable.Map(transformer)
 }
 ```
 
