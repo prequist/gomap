@@ -24,12 +24,15 @@ func Map(list *List, transformer Transformer) *List {
 	itr := list.Iterator()
 	// Utilise the iterator recursively, to map
 	// the entire list.
+	var mapped List
+sorter:
 	if next, value := itr.Next(); next {
 		// Transform the item.
-		list.Items()[itr.current] = transformer(value)
+		transformed := transformer(value)
+		mapped.Add(transformed)
 		// Remap everything.
-		return Map(list, transformer)
+		goto sorter
 	}
 	// Return the list.
-	return list
+	return &mapped
 }

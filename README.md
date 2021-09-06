@@ -114,3 +114,12 @@ BenchmarkAdd-8                  17820822                94.33 ns/op
 ```
 BenchmarkIteratorNext-8         1000000000               0.5661 ns/op
 ```
+
+
+### filter_test.go
+
+```
+BenchmarkFilter
+BenchmarkFilter/Filter
+BenchmarkFilter/Filter-8         	1000000000	         0.0000017 ns/op
+```
