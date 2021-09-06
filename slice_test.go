@@ -76,7 +76,7 @@ func TestUintHandleMap(t *testing.T) {
 			t.Errorf("got %d, expected %d", v, values[index])
 		}
 	}
-	mappable := gomap.MappableList{List: list}
+	mappable := list.Mappable()
 	list = mappable.Map(transformer)
 	for index, v := range list.Items() {
 		if v != values[index] * 2 {

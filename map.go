@@ -11,6 +11,11 @@ type MappableList struct {
 	*List
 }
 
+// Mappable returns a mappable list from an existing List.
+func (list *List) Mappable() MappableList {
+	return MappableList{list}
+}
+
 // The Map function is called on a MappableList to apply
 // the requested Transformer.
 func (l *MappableList) Map(transformer Transformer) *List {

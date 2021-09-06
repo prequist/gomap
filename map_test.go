@@ -136,7 +136,7 @@ func BenchmarkAdd(b *testing.B) {
 // Create a plain int list.
 func Plain(v ...interface{}) []int {
 	e := gomap.New(v...)
-	mappable := gomap.MappableList{List: e}
+	mappable := e.Mappable()
 	e = mappable.Map(func(v interface{}) interface{} {
 		return v.(int) + 1
 	})
@@ -150,7 +150,7 @@ func Plain(v ...interface{}) []int {
 // Create a plain string list.
 func String(v ...interface{}) []string {
 	e := gomap.New(v...)
-	mappable := gomap.MappableList{List: e}
+	mappable := e.Mappable()
 	e = mappable.Map(func(v interface{}) interface{} {
 		return v.(string) + "---"
 	})
@@ -164,7 +164,7 @@ func String(v ...interface{}) []string {
 // Create a boxed int list.
 func Boxed(v ...interface{}) []int {
 	e := gomap.NewBoxed(v...)
-	mappable := gomap.MappableList{List: e}
+	mappable := e.Mappable()
 	e = mappable.Map(func(v interface{}) interface{} {
 		ib := v.(ptypes.Box).IntBox()
 		return ptypes.FromInt(*ib.Int() + 2)
@@ -179,7 +179,7 @@ func Boxed(v ...interface{}) []int {
 // Create a boxed string list.
 func BoxedString(v ...interface{}) []string {
 	e := gomap.NewBoxed(v...)
-	mappable := gomap.MappableList{List: e}
+	mappable := e.Mappable()
 	e = mappable.Map(func(v interface{}) interface{} {
 		box := v.(ptypes.Box)
 		ib, _ := box.String()

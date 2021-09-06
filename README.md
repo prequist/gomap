@@ -37,6 +37,32 @@ func Showcase() {
 
 </details>
 
+<details close>
+<summary>Filter</summary>
+
+```go
+import (
+	"github.com/prequist/gomap"
+	"strings"
+)
+
+func Showcase() {
+	e := gomap.New("a", "b", "c", "ab", "d")
+	predicate := func(i interface{}) bool {
+		if str, ok := i.(string) {
+			return strings.Contains(str, "a")
+		}
+		return false
+	}
+	// Get the mappable list
+	mappable := e.Mappable()
+	// Apply the predicate, return the filtered list as a variable
+	mappable = e.Filter(predicate) 	// "a", "ab"
+}
+```
+
+</details>
+
 <details closed>
 <summary>Boxed</summary>
 
@@ -48,7 +74,7 @@ import (
 
 func MakeBoxedAndConvert() []int {
 	e := gomap.NewBoxed(1, 2, 3, 4, 5)
-	mappable := gomap.MappableList{e}
+	mappable := e.Mappable()
 	mappable.Map(func(v interface{}) interface{} {
 		ib := v.(ptypes.Box).IntBox()
 		return ptypes.FromInt(*ib.Int() + 2)
@@ -74,7 +100,7 @@ import (
 
 func MakeAndConvert() []int {
 	e := gomap.New(1, 2, 3, 4, 5)
-	mappable := gomap.MappableList{e}
+	mappable := e.Mappable()
 	mappable.Map(func(v interface{}) interface{} {
 		return v.(int) + 1
 	})
@@ -121,5 +147,5 @@ BenchmarkIteratorNext-8         1000000000               0.5661 ns/op
 ```
 BenchmarkFilter
 BenchmarkFilter/Filter
-BenchmarkFilter/Filter-8         	1000000000	         0.0000017 ns/op
+BenchmarkFilter/Filter-8         	1000000000	          0.0000009 ns/op
 ```
