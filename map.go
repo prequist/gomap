@@ -11,6 +11,11 @@ type MappableList struct {
 	*List
 }
 
+// Mappable returns a mappable list from an existing List.
+func (list *List) Mappable() MappableList {
+	return MappableList{list}
+}
+
 // The Map function is called on a MappableList to apply
 // the requested Transformer.
 func (l *MappableList) Map(transformer Transformer) *List {
@@ -24,12 +29,15 @@ func Map(list *List, transformer Transformer) *List {
 	itr := list.Iterator()
 	// Utilise the iterator recursively, to map
 	// the entire list.
+	var mapped List
+sorter:
 	if next, value := itr.Next(); next {
 		// Transform the item.
-		list.Items()[itr.current] = transformer(value)
+		transformed := transformer(value)
+		mapped.Add(transformed)
 		// Remap everything.
-		return Map(list, transformer)
+		goto sorter
 	}
 	// Return the list.
-	return list
+	return &mapped
 }

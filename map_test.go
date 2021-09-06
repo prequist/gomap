@@ -1,6 +1,7 @@
-package gomap
+package gomap_test
 
 import (
+	"github.com/prequist/gomap"
 	"github.com/prequist/ptypes"
 	"testing"
 )
@@ -126,7 +127,7 @@ func BenchmarkAdd(b *testing.B) {
 	v1 := "hello"
 	v2 := "world"
 	v3 := "test"
-	arr := NewBoxed(v1, v2, v3)
+	arr := gomap.NewBoxed(v1, v2, v3)
 	for i := 0; i < b.N; i++ {
 		arr.Add("hello")
 	}
@@ -134,9 +135,9 @@ func BenchmarkAdd(b *testing.B) {
 
 // Create a plain int list.
 func Plain(v ...interface{}) []int {
-	e := New(v...)
-	mappable := MappableList{e}
-	mappable.Map(func(v interface{}) interface{} {
+	e := gomap.New(v...)
+	mappable := e.Mappable()
+	e = mappable.Map(func(v interface{}) interface{} {
 		return v.(int) + 1
 	})
 	arr := make([]int, len(e.Items()))
@@ -148,9 +149,9 @@ func Plain(v ...interface{}) []int {
 
 // Create a plain string list.
 func String(v ...interface{}) []string {
-	e := New(v...)
-	mappable := MappableList{e}
-	mappable.Map(func(v interface{}) interface{} {
+	e := gomap.New(v...)
+	mappable := e.Mappable()
+	e = mappable.Map(func(v interface{}) interface{} {
 		return v.(string) + "---"
 	})
 	arr := make([]string, len(e.Items()))
@@ -162,9 +163,9 @@ func String(v ...interface{}) []string {
 
 // Create a boxed int list.
 func Boxed(v ...interface{}) []int {
-	e := NewBoxed(v...)
-	mappable := MappableList{e}
-	mappable.Map(func(v interface{}) interface{} {
+	e := gomap.NewBoxed(v...)
+	mappable := e.Mappable()
+	e = mappable.Map(func(v interface{}) interface{} {
 		ib := v.(ptypes.Box).IntBox()
 		return ptypes.FromInt(*ib.Int() + 2)
 	})
@@ -177,9 +178,9 @@ func Boxed(v ...interface{}) []int {
 
 // Create a boxed string list.
 func BoxedString(v ...interface{}) []string {
-	e := NewBoxed(v...)
-	mappable := MappableList{e}
-	mappable.Map(func(v interface{}) interface{} {
+	e := gomap.NewBoxed(v...)
+	mappable := e.Mappable()
+	e = mappable.Map(func(v interface{}) interface{} {
 		box := v.(ptypes.Box)
 		ib, _ := box.String()
 		return ptypes.FromString(ib + "---")

@@ -1,13 +1,14 @@
-package gomap
+package gomap_test
 
 import (
+	"github.com/prequist/gomap"
 	"testing"
 )
 
 // TestStringHandle tests the slice string handle.
 func TestStringHandle(t *testing.T) {
 	values := []string{"a", "b", "c"}
-	list := NewFromPrimitiveSlice(values, values[0])
+	list := gomap.NewFromPrimitiveSlice(values, values[0])
 	for index, v := range list.Items() {
 		if values[index] != v.(string) {
 			t.Errorf("got %s, expected %s", values[index], v.(string))
@@ -18,7 +19,7 @@ func TestStringHandle(t *testing.T) {
 // TestIntHandle tests the int handle.
 func TestIntHandle(t *testing.T) {
 	values := []int{1, 2, 3}
-	list := NewFromPrimitiveSlice(values, values[0])
+	list := gomap.NewFromPrimitiveSlice(values, values[0])
 	if list == nil {
 		t.Error("list was nil")
 		return
@@ -33,7 +34,7 @@ func TestIntHandle(t *testing.T) {
 // TestInt32Handle tests the int32 handle.
 func TestInt32Handle(t *testing.T) {
 	values := []int32{1, 2, 3}
-	list := NewFromPrimitiveSlice(values, values[0])
+	list := gomap.NewFromPrimitiveSlice(values, values[0])
 	if list == nil {
 		t.Error("list was nil")
 		return
@@ -50,7 +51,7 @@ func TestUintHandle(t *testing.T) {
 	// Create a slice.
 	values := []uint{1, 2, 3}
 	// Create a list.
-	list := NewFromPrimitiveSlice(values, values[0])
+	list := gomap.NewFromPrimitiveSlice(values, values[0])
 	// If the list is nil, error.
 	if list == nil {
 		t.Error("list was nil")
@@ -69,14 +70,14 @@ func TestUintHandleMap(t *testing.T) {
 		return i.(uint) * 2
 	}
 	values := []uint{1, 3, 5}
-	list := NewFromPrimitiveSlice(values, values[0])
+	list := gomap.NewFromPrimitiveSlice(values, values[0])
 	for index, v := range list.Items() {
 		if v != values[index] {
 			t.Errorf("got %d, expected %d", v, values[index])
 		}
 	}
-	mappable := MappableList{list}
-	mappable.Map(transformer)
+	mappable := list.Mappable()
+	list = mappable.Map(transformer)
 	for index, v := range list.Items() {
 		if v != values[index] * 2 {
 			t.Errorf("got %d, expected %d", v, values[index] * 2)
@@ -87,7 +88,7 @@ func TestUintHandleMap(t *testing.T) {
 // TestFloatHandle tests the float handle.
 func TestFloatHandle(t *testing.T) {
 	values := []float32{1.2222, 2.3333, 3.4444}
-	list := NewFromPrimitiveSlice(values, values[0])
+	list := gomap.NewFromPrimitiveSlice(values, values[0])
 	if list == nil {
 		t.Error("list was nil")
 		return
@@ -102,7 +103,7 @@ func TestFloatHandle(t *testing.T) {
 // TestComplexHandle tests the complex handle.
 func TestComplexHandle(t *testing.T) {
 	values := []complex64{1, 2, 3}
-	list := NewFromPrimitiveSlice(values, values[0])
+	list := gomap.NewFromPrimitiveSlice(values, values[0])
 	if list == nil {
 		t.Error("list was nil")
 		return
@@ -117,7 +118,7 @@ func TestComplexHandle(t *testing.T) {
 // TestComplexHandle tests the complex handle.
 func TestUintptrHandle(t *testing.T) {
 	values := []uintptr{1, 2, 3}
-	list := NewFromPrimitiveSlice(values, values[0])
+	list := gomap.NewFromPrimitiveSlice(values, values[0])
 	if list == nil {
 		t.Error("list was nil")
 		return

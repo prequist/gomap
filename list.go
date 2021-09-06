@@ -38,8 +38,6 @@ func (list *List) Add(v interface{}) *List {
 	list.mu.Lock()
 	// Append the elements to the list and the iterator.
 	list.elements = append(list.elements, v)
-	it := list.Iterator()
-	*it.elements = append(*it.elements, v)
 	// Unlock the mutex.
 	list.mu.Unlock()
 	return list
