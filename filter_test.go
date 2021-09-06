@@ -7,9 +7,10 @@ import (
 	"testing"
 )
 
+// Test the filtering function MappableList.Filter(Predicate).
 func TestFilter(t *testing.T) {
 	stringMap := gomap.New("test", "test1", "test2", "not_applicable", "test3")
-	mappable := gomap.MappableList{List: stringMap}
+	mappable := stringMap.Mappable()
 	filtered := mappable.Filter(func(i interface{}) bool {
 		if str, ok := i.(string); ok {
 			return strings.Contains(str, "test")
@@ -23,6 +24,7 @@ func TestFilter(t *testing.T) {
 	}
 }
 
+// Benchmark the filtering function.
 func BenchmarkFilter(b *testing.B) {
 	stringMap := gomap.New("test", "test1", "test2", "not_applicable", "test3")
 	mappable := stringMap.Mappable()
@@ -42,6 +44,7 @@ func BenchmarkFilter(b *testing.B) {
 	}
 }
 
+// Map an interface array to a string.
 func mapToString(i []interface{}) []string {
 	var strArr []string
 	for _, v :=  range i {
